@@ -29,21 +29,9 @@
 
 				if (!response_data) $.getJSON(this.url, function (data) {
 				    response_data = localStorage.setItem('getMPs', JSON.stringify(data));
-				});
-				
-				self.response_data = result;
-
-				$.ajaxSetup({ cache: true });
-				$.getJSON(this.url, function(result){
-				    
-				    // add data to object to avoid repeated API calls
-  	 				
-	  			});		
+		   			self.response_data = result;
+				});			
 	  	},
-
-	  	// members_list: function(response_data) {
-	  	// 	return response_data;
-	  	// },
 
 	  	pick_one: function(item)	{
 				var random_id = Math.floor(Math.random() * 648);
@@ -58,31 +46,9 @@
 				$('#chosen_one .last_words').text(app.response_data.rows[0].body)
 				console.log(chosen_one.name);
 			}
-}
-	app.init();
-
-	// $.getJSON("http://www.theyworkforyou.com/api/getMPs?key=GEGMS7CVRzUFFvoPV2DbcscS&output=js&callback=?", function(result){
-	//   //response data are now in the result variable
-	//   members = result;
-	//   pickOne(members);
-	// });
-
-	// // function init()
-	// // {
-	// // 	// Set up a new instance of the API binding
-	// // 	var twfyapi = new TWFYAPI.TWFYAPI("GEGMS7CVRzUFFvoPV2DbcscS");
-	// // 	// Get a list MPs
-	// // 	twfyapi.query("getMPs", {"output": "js", "callback": "mps"});
-	// // }
-
+	}
 	
-	// 	// Print out the list
-	// 	// for (var i = 0; i < data.length; i++)
-	// 	// {
-	// 	// 	document.getElementById("mp_list").innerHTML += "<p>" + data[i].name + "</p>";
-	// 	// }
-	// }
-	// // window.onload = init;
+	app.init();
 	
 </script>
 </body>
