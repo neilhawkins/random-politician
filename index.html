@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>TheyWorkForYou.com API JavaScript interface Test Page</title>
+<!-- <script src="twfyapi.js"></script>-->
+
+</head>
+<body>
+<div id="chosen_one"><h1></h1></div>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script> 
+<script>
+	
+	var app = {
+
+			url: "http://www.theyworkforyou.com/api/getMPs?key=GEGMS7CVRzUFFvoPV2DbcscS&output=js&callback=?",
+
+			init: function() {
+				this.make_request();
+			},
+
+			make_request: function() {
+				// Reference to app object for use within nester function
+				var self = this;
+				var response_data;
+
+				response_data = JSON.parse(localStorage.getItem('getMPs'));
+
+				if (!response_data) $.getJSON(this.url, function (data) {
+				    response_data = localStorage.setItem('getMPs', JSON.stringify(data));
+				});
+				
+				self.response_data = result;
+
+				$.ajaxSetup({ cache: true });
+				$.getJSON(this.url, function(result){
+				    
+				    // add data to object to avoid repeated API calls
+  	 				
+	  			});		
+	  	},
+
+	  	// members_list: function(response_data) {
+	  	// 	return response_data;
+	  	// },
+
+	  	pick_one: function(item)	{
+				var random_id = Math.floor(Math.random() * 648);
+				console.log(random_id);
+
+				
+				this.chosen_one = members[random_id];
+
+				console.log(this.chosen_one);
+
+				$('#chosen_one h1').text(chosen_one.name + " MP");
+				$('#chosen_one .last_words').text(app.response_data.rows[0].body)
+				console.log(chosen_one.name);
+			}
+}
+	app.init();
+
+	// $.getJSON("http://www.theyworkforyou.com/api/getMPs?key=GEGMS7CVRzUFFvoPV2DbcscS&output=js&callback=?", function(result){
+	//   //response data are now in the result variable
+	//   members = result;
+	//   pickOne(members);
+	// });
+
+	// // function init()
+	// // {
+	// // 	// Set up a new instance of the API binding
+	// // 	var twfyapi = new TWFYAPI.TWFYAPI("GEGMS7CVRzUFFvoPV2DbcscS");
+	// // 	// Get a list MPs
+	// // 	twfyapi.query("getMPs", {"output": "js", "callback": "mps"});
+	// // }
+
+	
+	// 	// Print out the list
+	// 	// for (var i = 0; i < data.length; i++)
+	// 	// {
+	// 	// 	document.getElementById("mp_list").innerHTML += "<p>" + data[i].name + "</p>";
+	// 	// }
+	// }
+	// // window.onload = init;
+	
+</script>
+</body>
+</html>
