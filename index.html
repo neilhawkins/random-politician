@@ -1,55 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="utf-8">
-<title>TheyWorkForYou.com API JavaScript interface Test Page</title>
-<!-- <script src="twfyapi.js"></script>-->
-
+    <meta charset="utf-8">
+    <title>Random Politician</title>
+    <link rel="stylesheet" href="random_mp.css">
 </head>
+
 <body>
-<div id="chosen_one"><h1></h1></div>
+    <div id="chosen_one">
+        <h1 class="MP_name"></h1>
+    </div>
+    <button class="btn btn-primary btn-large">Random politician</button>
 
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script> 
-<script>
-	
-	var app = {
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script>
+    // Version 1.0 
+    // Copyright Neil Hawkins
+    // 12/05/2014
 
-			url: "http://www.theyworkforyou.com/api/getMPs?key=GEGMS7CVRzUFFvoPV2DbcscS&output=js&callback=?",
+    var app = {
 
-			init: function() {
-				this.make_request();
-			},
+        getMPs: "http://www.theyworkforyou.com/api/getMPs?key=GEGMS7CVRzUFFvoPV2DbcscS&output=js&callback=?",
 
-			make_request: function() {
-				// Reference to app object for use within nester function
-				var self = this;
-				var response_data;
+        getHansard: function(MP_id) {
+            return "http://www.theyworkforyou.com/api/getHansard?key=GEGMS7CVRzUFFvoPV2DbcscS&output=js&callback=?&person=" + MP_id
+        },
 
-				response_data = JSON.parse(localStorage.getItem('getMPs'));
+        init: function(request) {
+        		this.bind_events();
+            this.make_request(request);
+        },
 
-				if (!response_data) $.getJSON(this.url, function (data) {
-				    response_data = localStorage.setItem('getMPs', JSON.stringify(data));
-		   			self.response_data = result;
-				});			
-	  	},
+        bind_events: function(){
+        	console.log('binding...')
+        	var self = this;
+        	$('.btn').on('click', function() {
+        		self.pick_one();
+        	});
 
-	  	pick_one: function(item)	{
-				var random_id = Math.floor(Math.random() * 648);
-				console.log(random_id);
+        },
 
-				
-				this.chosen_one = members[random_id];
+        make_request: function(request_url) {
 
-				console.log(this.chosen_one);
+            var self = this;
+            var response_data = JSON.parse(localStorage.getItem('MPs'));
+            console.log(response_data);
+            self.response_data = response_data;
 
-				$('#chosen_one h1').text(chosen_one.name + " MP");
-				$('#chosen_one .last_words').text(app.response_data.rows[0].body)
-				console.log(chosen_one.name);
-			}
-	}
-	
-	app.init();
-	
-</script>
+            if (!response_data) $.getJSON(request_url, function(data) {
+                response_data = localStorage.setItem('MPs', JSON.stringify(data));
+                self.response_data = response_data;
+            });
+            this.pick_one(this.response_data);
+
+        },
+
+        pick_one: function(response_data) {
+            var random_id = Math.floor(Math.random() * 648);
+            console.log(random_id);
+
+            var chosen_one = this.response_data[random_id];
+            console.log(chosen_one);
+            console.log(chosen_one.name);
+
+            $('#chosen_one h1').text(chosen_one.name + " MP");
+            //$('#chosen_one .last_words').text(app.response_data.rows[0].body)
+        }
+    }
+
+    $(document).ready(function() {
+        app.init(app.getMPs);
+    });
+    </script>
 </body>
+
 </html>
