@@ -52,19 +52,19 @@
 	                localStorage.setItem('MPs', JSON.stringify(data));
 	                self.MPs = data;
 	     						console.log(self.MPs, data);
-	     						self.pick_one(self.MPs);
+	     						self.pick_one();
 	          		});
             } else
 
- 						this.pick_one(this.MPs);
+ 						this.pick_one();
 
         },
 
-        pick_one: function(response) {
+        pick_one: function() {
             var random_id = Math.floor(Math.random() * 648);
             console.log(random_id);
 
-            var chosen_one = response[random_id];
+            var chosen_one = this.MPs[random_id];
             console.log(chosen_one);
             console.log(chosen_one.name);
 
