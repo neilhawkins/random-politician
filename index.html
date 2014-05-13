@@ -33,7 +33,6 @@
         },
 
         bind_events: function(){
-        	console.log('binding...')
         	var self = this;
         	$('.btn').on('click', function() {
         		self.pick_one();
@@ -44,23 +43,28 @@
         make_request: function(request_url) {
 
             var self = this;
-            var response_data = JSON.parse(localStorage.getItem('MPs'));
-            console.log(response_data);
-            self.response_data = response_data;
 
-            if (!response_data) $.getJSON(request_url, function(data) {
-                response_data = localStorage.setItem('MPs', JSON.stringify(data));
-                self.response_data = response_data;
-            });
-            this.pick_one(this.response_data);
+            var response_data = JSON.parse(localStorage.getItem('MPs'));
+            this.MPs = response_data;
+
+            if (!response_data) {
+            	$.getJSON(request_url).done(function(data) {
+	                localStorage.setItem('MPs', JSON.stringify(data));
+	                self.MPs = data;
+	     						console.log(self.MPs, data);
+	     						self.pick_one(self.MPs);
+	          		});
+            } else
+
+ 						this.pick_one(this.MPs);
 
         },
 
-        pick_one: function(response_data) {
+        pick_one: function(response) {
             var random_id = Math.floor(Math.random() * 648);
             console.log(random_id);
 
-            var chosen_one = this.response_data[random_id];
+            var chosen_one = response[random_id];
             console.log(chosen_one);
             console.log(chosen_one.name);
 
