@@ -67,7 +67,7 @@ var RandoMP = {
     },
 
     make_request: function(request_url) {
-
+        var self = this;
         var response_data = JSON.parse(localStorage.getItem('MPs'));
         this.MPs = response_data;
 
