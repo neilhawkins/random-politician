@@ -24,7 +24,7 @@ var RandoMP = {
         "Speaker": "white"
     },
 
-    getMPs: "http://www.theyworkforyou.com/api/getMPs?key=GEGMS7CVRzUFFvoPV2DbcscS&output=js&callback=?",
+    getMPs: "http://www.theyworkforyou.com/api/getMPs?key=E5L2aTCuvEZnAXuVfyGN83sM&output=js&callback=?",
 
     init: function(request) {
         this.bind_events();
