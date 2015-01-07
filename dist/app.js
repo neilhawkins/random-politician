@@ -1,8 +1,5 @@
-// Version 1.0 
-// Copyright Neil Hawkins
-// 12/05/2014
-
-var RandoMP = {
+/*! random-politician - v0.1.0 - 2015-01-07
+* Copyright (c) 2015 ;*/var RandoMP = {
 
     MPs: null,
     hansard: null,
@@ -21,7 +18,8 @@ var RandoMP = {
         "Alliance": "#FFD700",
         "Green": "#6AB023",
         "Respect": "#FF3300",
-        "Speaker": "white"
+        "Speaker": "white",
+        "UKIP": "#70147A"
     },
 
     getMPs: "http://www.theyworkforyou.com/api/getMPs?key=E5L2aTCuvEZnAXuVfyGN83sM&output=js&callback=?",
@@ -57,7 +55,7 @@ var RandoMP = {
     },
 
     pick_MP: function() {
-        var random_id = Math.floor(Math.random() * 648);
+        var random_id = Math.floor(Math.random() * this.MPs.length);
         var chosen_one = this.MPs[random_id];
         var MP_id = chosen_one.person_id;
         var party = chosen_one.party;
@@ -77,11 +75,11 @@ var RandoMP = {
                 self.MPs = data;
                 self.pick_MP();
             });
-        } else
+        } else {
             this.pick_MP();
-
+        }
     }
-}
+};
 
 $(document).ready(function() {
     RandoMP.init(RandoMP.getMPs);
