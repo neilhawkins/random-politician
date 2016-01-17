@@ -1,5 +1,10 @@
 module.exports = function (grunt) {
     'use strict';
+    // load all grunt tasks matching the `grunt-*` pattern
+    require('load-grunt-tasks')(grunt);
+    // measures the time each task takes
+    require('time-grunt')(grunt);
+
     // Project configuration
     grunt.initConfig({
         // Metadata
@@ -15,8 +20,16 @@ module.exports = function (grunt) {
                 stripBanners: true
             },
             dist: {
-                src: ['lib/*.js'],
-                dest: 'dist/app.js'
+                src: ['lib/**/*.js'],
+                dest: 'dist/<%= pkg.name %>.js'
+            }
+        },
+        csslint: {
+            strict: {
+                options: {
+                  import: 2
+                },
+            src: ['lib/**/*.css']
             }
         },
         uglify: {
@@ -24,44 +37,48 @@ module.exports = function (grunt) {
                 banner: '<%= banner %>'
             },
             dist: {
-                src: '<%= concat.dist.dest %>',
-                dest: 'dist/app.min.js'
+                options: {
+                    sourceMap: true
+                    // sourceMapName: 'path/to/sourcemap.map'
+                },
+                files: {
+                    'dist/<%= pkg.name %>.min.js': ['<%= concat.dist.dest %>']
+                }   
             }
         },
         jshint: {
             options: {
-                node: true,
-                curly: true,
-                eqeqeq: true,
-                immed: true,
-                latedef: true,
-                newcap: true,
-                noarg: true,
-                sub: true,
-                undef: true,
-                unused: true,
-                eqnull: true,
-                browser: true,
+                // node: true,
+                // curly: true,
+                // eqeqeq: true,
+                // immed: true,
+                // latedef: true,
+                // newcap: true,
+                // noarg: true,
+                // sub: true,
+                // undef: true,
+                // unused: true,
+                // eqnull: true,
+                // browser: true,
                 globals: { jQuery: false },
-                boss: true
+                // boss: true
             },
-            all: {
-                src: ['*.js']
-            }
+            files: ['Gruntfile.js', 'lib/**/*.js'],
+        },
+        reload: {
+          port: 35729
         },
         watch: {
             scripts: {
-                files: ['lib/*.js'],
-                tasks: ['default']
+                options: {
+                    livereload: true,
+                    atBegin: true
+                },
+                files: ['<%= jshint.files %>', 'lib/**/*.css'],
+                tasks: ['newer:jshint']
             },
         }
     });
-
-    // These plugins provide necessary tasks
-    grunt.loadNpmTasks('grunt-contrib-concat');
-    grunt.loadNpmTasks('grunt-contrib-uglify');
-    grunt.loadNpmTasks('grunt-contrib-jshint');
-    grunt.loadNpmTasks('grunt-contrib-watch');
 
     // Default task
     grunt.registerTask('default', ['jshint', 'concat', 'uglify']);

@@ -1,8 +1,5 @@
-/* Version 1.0 
-Copyright Neil Hawkins
-12/05/2014 */
-
-var RandoMP = {
+/*! random-politician - v0.1.0 - 2015-01-11
+* Copyright (c) 2015 ;*/var RandoMP = {
 
     MPs: null,
     hansard: null,
