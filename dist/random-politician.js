@@ -1,5 +1,5 @@
-/*! random-politician - v0.1.0 - 2015-01-11
-* Copyright (c) 2015 ;*/var RandoMP = {
+/*! random-politician - v0.1.0 - 2016-01-17
+* Copyright (c) 2016 ;*/var RandoMP = {
 
     MPs: null,
     hansard: null,
